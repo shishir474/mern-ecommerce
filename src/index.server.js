@@ -3,13 +3,14 @@ const env = require('dotenv');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const userRoutes = require('./routes/user');
 
 
 // environment variables or u can say constants
 env.config();
  
 app.use(bodyParser());
-
+app.use('/api', userRoutes)
 //mongodvb connection string
 // mongodb+srv://Shishir:<password>@cluster0.pi86f.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
@@ -23,21 +24,9 @@ mongoose.connect(
 ).then(() => {
     console.log('Database Connected');
 });
-// Hello APi
-app.get('/', (req,res,next) => {
-    res.status(200).json({
-        message: 'Hello from Server'
-    });
-});
-
-app.post('/data', (req,res,next) => {
-    res.status(200).json({
-        message: req.body
-    });
-});
 
 
-console.log(process.env.PORT);
-app.listen(8000, () => {
-    console.log('Server is running on port 8000');
+
+app.listen(process.env.PORT, () => {
+    console.log(`Server is running on port ${process.env.PORT}`);
 })
