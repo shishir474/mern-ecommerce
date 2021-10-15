@@ -44,11 +44,17 @@ const userSchema = new mongoose.Schema({
 
 },{timestamps: true})
 
-
+// used bcrypt's hashSync method to encrypt passwords
 userSchema.virtual('password')
 .set(function(password){
  this.hash_password = bcrypt.hashSync(password,10);
 });
+
+//adding a virtual key fullname using the firstName and lastName
+userSchema.virtual('fullName')
+.get(function(){
+    return `${this.firstName} ${this.lastName}`;
+})
 
 userSchema.methods = {
     authenticate: function(password){
