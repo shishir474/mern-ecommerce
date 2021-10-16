@@ -1,25 +1,30 @@
-const User = require('../models/User');
+const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
+
+
+exports.changeRole = function(req,res,next){
+    req.body.role = 'admin'
+    next();
+}
 
 exports.signup = function(req,res){
        // checking if user already exists
    User.findOne({email:req.body.email}, (err, user)=>{
     if(user){
         return res.status(400).json({
-            message:'User already exists'
+            message:'Admin already registered'
         })
     }
 
-    // else create the user
-    User.create(req.body, (err,user)=>{
+     User.create(req.body, (err,user)=>{
         if(err){
              return res.status(400).json({
-                 message:'error in creating the user'
+                 message:'error in creating the admin'
              })
         }
+    
         return res.status(201).json({
-            message: 'User created succesfully',
-            user: user
+            message: 'Admin created succesfully',
         })
     });
 
@@ -36,7 +41,7 @@ exports.signin = (req, res) => {
             })
         }
 
-        if(user.authenticate(req.body.password)){
+        if(user.authenticate(req.body.password) && user.role === 'admin'){
             const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET, { expiresIn: '1h' });
             const { _id, firstName, lastName, email, role, fullName } = user;
             res.status(200).json({

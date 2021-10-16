@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
-
+const adminRoutes = require('./routes/admin/auth');
 
 // environment variables or u can say constants
 env.config();
@@ -12,6 +12,7 @@ env.config();
 app.use(bodyParser());
 // all api's are prefixed with /api
 app.use('/api', authRoutes);
+app.use('/api', adminRoutes);
 
 mongoose.connect(
     `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.pi86f.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,
