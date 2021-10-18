@@ -1,4 +1,5 @@
 const { check, validationResult }  = require('express-validator');
+// you'll want to make sure that you validate the input and report any errors before creating the user:
 
 exports.validateSignupRequest = [
     check('firstName')
