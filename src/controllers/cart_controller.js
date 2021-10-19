@@ -15,7 +15,7 @@ Cart.findOne({user: req.user._id}).exec((error,cart)=>{
                   // item already present inside cart. have to update its quantity
             Cart.findOneAndUpdate({"user":req.user._id, "cartItems.product": productid},{
                 "$set":{
-                    "cartItems":{
+                    "cartItems.$":{
                         ...req.body.cartItems,
                         quantity: item.quantity + req.body.cartItems.quantity
                     }
