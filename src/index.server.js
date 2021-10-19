@@ -2,6 +2,7 @@ const express = require('express');
 const env = require('dotenv');
 const app = express();
 const mongoose = require('mongoose');
+const path = require('path');
 
 //routes
 const authRoutes = require('./routes/auth');
@@ -14,6 +15,8 @@ const cartRoutes =  require('./routes/cart');
 env.config();
  
 app.use(express.json());
+// express.static middleware added to expose my static files towards the browser. Whenver req comes to '/public' it will map uploads. hence specified as the first argument
+app.use('/public', express.static(path.join(__dirname, 'uploads')));
 
 // all api's are prefixed with /api
 app.use('/api', authRoutes);
