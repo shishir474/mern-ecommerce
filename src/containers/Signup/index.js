@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout } from '../../components/Layout'
-import { Form,Button,Row,Col } from 'react-bootstrap'
+import { Form,Button,Row,Col, Container } from 'react-bootstrap'
 import { Input } from '../../components/UI/Input'
 /**
 * @author
@@ -48,10 +48,12 @@ export const Signup = (props) => {
                         type="password"
                         onChange={ ()=>{} }
                      />
-                     
-                  <Button variant="primary" type="submit">
-                    Submit
-                  </Button>
+  
+                    <Button variant="primary" type="submit">
+                      Submit
+                    </Button>
+
+              
               </Form>
           </Col>
         
