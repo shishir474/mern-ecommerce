@@ -1,7 +1,15 @@
 import { authConstants } from "../actions/constants";
 
 const initState = {
-    name: "Shishir"
+    token: null,
+    user: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        picture: ''
+    },
+    authenticate: false,
+    authenticating: false
 }
 
 export default (state = initState, action) => {
@@ -10,9 +18,19 @@ export default (state = initState, action) => {
    switch(action.type){
        case authConstants.LOGIN_REQUEST:
             state = {
-                ...state,
-                ...action.payload
+                ...state,     // split the existing state
+                authenticating: true
 
+            }
+            break;
+
+        case authConstants.LOGIN_SUCCESS:
+            state = {
+                ...state,     // split the state so that we can overwrite its value
+                user: action.payload.user,
+                token: action.payload.token,
+                authenticate: true,
+                authenticating: false
             }
             break;
 
